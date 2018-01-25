@@ -19,7 +19,7 @@ $myhashid->encode(1001); // generates 'noZHdO1'
 $myhashid->encode(1002); // generates 'yoZHdO1'
 
 
-//Use decode to decode the hash
+//Use decode function to decode the hash
 $myhashid->decode('nryozKt')); // will return 1
 $myhashid->decode('yrEOxRa')); // will return 2
 $myhashid->decode('nyrozKt')); // will return 3
@@ -40,8 +40,10 @@ $arcticlehasher->endode(1224); // will generate 'TL6yce'
 
 Below 'd9ECVs' and 'TL6yce' are same values, but hashed differently. Useful to hash all database autoincrement using the table name as a salt. But when decoding, the type of hash must be known. Generally, URIs identifies a ressource type and its id, so a different hasher could be used to decode hash like this :
 
+```
 example.com/user/d9ECVs  => user # 1234, because this URL points to a user ressource, which need to decode the hash with salt 'users'
 example.com/article/TL6yce => article # 1234, because this URL points to an article ressource, which need to decode the hash with salt 'articles'
+```
 
 By default, hasher uses alpha characters and numbers. You can set a custom character table. But lesser the character table's length is, less amount of id can be hashed. Use function stats() to know what is the maximum value that the class can hash.
 
