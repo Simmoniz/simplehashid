@@ -2,7 +2,7 @@
 A simple class that produce hash with incrementable ids. All hash are 100 % unique.
 
 How to use
-Include file, instanciate that class, provide the minimum length of your hashes and a random salt.
+Include file, instanciate that class, provide the minimum length of the hashes you want to generate and a random salt.
 
 ```
 require 'SimpleHashId.php';
