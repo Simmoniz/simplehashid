@@ -33,7 +33,7 @@ A cool thing is to "interface" hashing with different salts. You can use a diffe
 $userishasher = new SimpleHashId(6, 'users');
 $arcticlehasher = new SimpleHashId(6, 'articles');
 
-// each of them will generate their own different set of hash
+// each of them will generate their own set of hash
 $userishasher->encode(1234); // will generate 'd9ECVs'
 $arcticlehasher->endode(1224); // will generate 'TL6yce'
 ```
