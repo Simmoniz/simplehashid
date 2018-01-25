@@ -42,10 +42,10 @@ By default, hasher uses alpha characters and numbers. You can set a custom chara
 
 ```
 $examplehasher = new SimpleHashId(6, 'randomsalthere', 'smalltable');
-$examplehasher->encode(1); // will generate 'leabsbs'
-$examplehasher->encode(2); // will generate 'aetllll'
-$examplehasher->encode(3); // will generate 'laebsbs'
-$examplehasher->encode(4); // will generate 'telsbsb'
+$examplehasher->encode(1); // will generate 'atlmmm'
+$examplehasher->encode(2); // will generate 'ltssss'
+$examplehasher->encode(3); // will generate 'altmmm'
+$examplehasher->encode(4); // will generate 'stbaaa'
 
 // this hash has less character used to hash ids, so it can encode only numbers from 0 to 512. This is what function stats will show
 $examplehasher->stats();
@@ -54,11 +54,11 @@ $examplehasher->stats();
 Array
 (
     [character_table] => smaltbe
-    [len] => 9
+    [len] => 6
     [min] => 0
-    [max] => 512
-    [generated_hash] => latblasml
-    [break_character] => e
+    [max] => 64
+    [generated_hash] => alsmbe
+    [break_character] => t
 )
 ```
 
