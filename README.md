@@ -29,11 +29,11 @@ $myhashid->decode('oZHdO1')); // will return 1000
 $myhashid->decode('noZHdO1')); // will return 1001
 $myhashid->decode('yoZHdO1')); // will return 1002
 
-// A cool thing is to "interface" the ids you want to hash according to type of element the id is related to, for example :
+// A cool thing is to "interface" hashing using the salt. A different salt can be used according to the type of element the id is related to, for example :
 $userishasher = new SimpleHashId(6, 'users');
 $arcticlehasher = new SimpleHashId(6, 'articles');
 
-// each of them will generate their own different "hash set"
+// each of them will generate their own different set of hash
 $userishasher->encode(1234); // will generate 'd9ECVs'
 $arcticlehasher->endode(1224); // will generate 'TL6yce'
 ```
