@@ -1,5 +1,7 @@
 <?php
 
+<?php
+
 /**
  * SimpleHashId
  *
@@ -21,11 +23,7 @@ class SimpleHashId{
 	function __construct($minChars=5, $salt='', $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'){
 		
 		$this->chars = $chars;
-		if(!$salt){
-			$ci = &get_instance();
-			$salt = $ci->config->item('encryption_key');	
-		}
-		$this->salt = $salt;
+		$this->salt = $salt ? $salt : 'salt';
 		$this->minChars = $minChars;
 		$this->len = strlen($this->chars) - 1;
 		$this->bit_table = array();
@@ -35,6 +33,20 @@ class SimpleHashId{
 	
 	private function generateHash(){
 		$hash = $this->chars;
+		
+		$o = 0;
+		// normalize character table
+		for($i=0; $i<strlen($this->chars); $i++){
+			for($j=$i+1; $j < strlen($this->chars); $j++){
+				if($this->chars[$i]==$this->chars[$j]){
+					$this->chars = substr($this->chars, 0, $j) . substr($this->chars, $j+1);
+					$j--;
+					$o++;
+					if($o>99)die();
+				}
+			}
+		}
+		
 		for($i=0; $i<strlen($this->salt); $i++){
 			$c = $this->salt[$i];
 			$h = '';
@@ -56,27 +68,35 @@ class SimpleHashId{
 		}
 		$this->break_character = substr($hash, strlen($hash)-1);
 		$this->hash = substr($hash, 0, strlen($hash)-1);
+		
 		for($i = 0; $i<$this->len; $i++)$this->bit_table[$this->hash[$i]] = pow(2, $i);
 	}
 	
 	
-	public function encode($id){
+	public function encode($id, $stop=FALSE){
 		
-		if( $id >= pow(2, $this->len) )return NULL; // cannot generate hash !!
+		$toencode = $id;
+		
+		if( $toencode >= pow(2, $this->len) )return NULL; // cannot generate hash !!
 		
 		$hash = '';
 		$bit = 0;
 		
-		while($id){
-			if($id%2)$hash .= $this->hash[$bit];
-			$id = $id >> 1;
+		while($toencode){
+			if($toencode%2)$hash .= $this->hash[$bit];
+			$toencode = $toencode >> 1;
 			$bit++;
 		}
+		if($stop)return $hash;
 		if(strlen($hash)<$this->minChars){
 			$hash .= $this->break_character;
+			// generate some random padding
 			if(strlen($hash)<$this->minChars){
+				$p = $id;
 				for($i=strlen($hash); $i<=$this->minChars; $i++){
-					$hash .= substr($this->hash, rand(0, $this->len-1),1);				
+					$p = $p % $this->len;
+					$hash .= substr($this->hash, $p,1);				
+					$p += $p * ($p+1);
 				}		
 			}
 		}
@@ -87,13 +107,15 @@ class SimpleHashId{
 		$val = 0;
 		for($i = 0 ; $i < strlen($hash); $i++){
 			if($hash[$i]==$this->break_character)break;
+			if(!array_key_exists($hash[$i], $this->bit_table))return NULL;
 			$val += $this->bit_table[$hash[$i]];
 		}
 		return $val;
 	}
 	
 	public function stats(){
-		return array(	'len' => $this->len,
+		return array(	'character_table' => $this->chars,
+						'len' => $this->len,
 						'min' => 0,
 						'max' => pow(2, $this->len),
 						'generated_hash' => $this->hash,
