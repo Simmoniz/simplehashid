@@ -72,7 +72,7 @@ class SimpleHashId{
 	}
 	
 	
-	public function encode($id, $stop=FALSE){
+	public function encode($id){
 		
 		$toencode = $id;
 		
