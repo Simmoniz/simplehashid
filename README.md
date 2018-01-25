@@ -47,7 +47,7 @@ $examplehasher->encode(2); // will generate 'ltssss'
 $examplehasher->encode(3); // will generate 'altmmm'
 $examplehasher->encode(4); // will generate 'stbaaa'
 
-// this hash has less character used to hash ids, so it can encode only numbers from 0 to 512. This is what function stats will show
+// this hash has less character used to hash ids, so it can encode only numbers from 0 to 64. This is what function stats will show
 $examplehasher->stats();
 
 // Will show
