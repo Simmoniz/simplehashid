@@ -1,8 +1,7 @@
 # SimpleHashId
 A simple class that produce hash with incrementable ids. All hash are 100 % unique.
 
-How to use
-Include file, instanciate that class, provide the minimum length of the hashes you want to generate and a random salt.
+How to use : include file, instanciate that class, provide a minimum hash length and a random salt.
 
 ```
 require 'SimpleHashId.php';
