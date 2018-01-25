@@ -1,5 +1,5 @@
-# simplehashid
-A simple class that produce hash with incrementable ids. All produced hash are unique
+# SimpleHashId
+A simple class that produce hash with incrementable ids. All produced hash are unique.
 
 How to use
 Include file, instanciate that class, provide the minimum length of your hashes and a random salt.
@@ -69,4 +69,6 @@ Array
 )
 ```
 
-Enjoy and feel free to make version of your favorite programming language. All this is done with simple coding
+Enjoy,
+
+Simonniz
