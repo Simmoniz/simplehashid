@@ -61,7 +61,6 @@ class SimpleHashId{
 					$hash = $pos==0 ? substr($hash, 1) : substr($hash, 0, $pos);
 				}
 				$j++;
-				if($j==999)die('OOPS');
 			}
 			$hash = $h;
 		}
