@@ -20,32 +20,31 @@ class SimpleHashId{
 	private $break_character; // character used to breack the hash
 	private $bit_table;
 
-	function __construct($minChars=5, $salt='', $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'){
+	function __construct($minChars=5, $salt='salt', $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'){
 		
 		$this->chars = $chars;
-		$this->salt = $salt ? $salt : 'salt';
+		$this->salt = $salt;
 		$this->minChars = $minChars;
-		$this->len = strlen($this->chars) - 1;
+		
 		$this->bit_table = array();
 		$this->generateHash();
 		
 	}
 	
 	private function generateHash(){
-		$hash = $this->chars;
 		
-		$o = 0;
 		// normalize character table
 		for($i=0; $i<strlen($this->chars); $i++){
 			for($j=$i+1; $j < strlen($this->chars); $j++){
 				if($this->chars[$i]==$this->chars[$j]){
 					$this->chars = substr($this->chars, 0, $j) . substr($this->chars, $j+1);
 					$j--;
-					$o++;
-					if($o>99)die();
 				}
 			}
 		}
+		
+		$hash = $this->chars;
+		$this->len = strlen($this->chars) - 1;
 		
 		for($i=0; $i<strlen($this->salt); $i++){
 			$c = $this->salt[$i];
