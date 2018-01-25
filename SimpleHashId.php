@@ -86,7 +86,7 @@ class SimpleHashId{
 			$toencode = $toencode >> 1;
 			$bit++;
 		}
-		if($stop)return $hash;
+		
 		if(strlen($hash)<$this->minChars){
 			$hash .= $this->break_character;
 			// generate some random padding
