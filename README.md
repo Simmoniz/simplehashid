@@ -28,7 +28,7 @@ $myhashid->decode('oZHdO1')); // will return 1000
 $myhashid->decode('noZHdO1')); // will return 1001
 $myhashid->decode('yoZHdO1')); // will return 1002
 ```
-A cool thing is to "interface" hashing with different salts. You can use a different salt according to the type of element the id is related to, for example :
+You can use a different salt, for example :
 ```
 $userishasher = new SimpleHashId(6, 'users');
 $arcticlehasher = new SimpleHashId(6, 'articles');
@@ -36,13 +36,6 @@ $arcticlehasher = new SimpleHashId(6, 'articles');
 // each of them will generate their own set of hash
 $userishasher->encode(1234); // will generate 'd9ECVs'
 $arcticlehasher->endode(1224); // will generate 'TL6yce'
-```
-
-Below 'd9ECVs' and 'TL6yce' are same values, but hashed differently. Useful to hash all database autoincrement using the table name as a salt. But when decoding, the type of hash must be known. Generally, URIs identifies a ressource type and its id, so a different salt could be used to decode hash like this :
-
-```
-example.com/user/d9ECVs  => user # 1234, because this URL points to a user ressource, which need to decode the hash with salt 'users'
-example.com/article/TL6yce => article # 1234, because this URL points to an article ressource, which need to decode the hash with salt 'articles'
 ```
 
 By default, hasher uses alpha characters and numbers. You can set a custom character table. But lesser the character table's length is, less amount of id can be hashed. Use function stats() to know what is the maximum value that the class can hash.
